@@ -88,34 +88,30 @@ export default function Index() {
           </View>
         ) : (
           habits.map((habit, key) => (
-            <View style={styles.cardShadow} key={key}>
-              <Surface style={styles.card} elevation={2}>
-                <View style={styles.cardContent}>
-                  <Text style={styles.cardTitle}>{habit.title}</Text>
-                  <Text style={styles.cardDescription}>
-                    {habit.description}
-                  </Text>
-                  <View style={styles.cardFooter}>
-                    <View style={styles.streakBadge}>
-                      <MaterialCommunityIcons
-                        name="fire"
-                        size={18}
-                        color={"#ff9800"}
-                      />
-                      <Text style={styles.streakText}>
-                        {habit.streak_count} day streak
-                      </Text>
-                    </View>
-                    <View style={styles.frequencyBadge}>
-                      <Text style={styles.frequencyText}>
-                        {habit.frequency.charAt(0).toUpperCase() +
-                          habit.frequency.slice(1)}
-                      </Text>
-                    </View>
+            <Surface style={styles.card} key={key} elevation={1}>
+              <View style={styles.cardContent}>
+                <Text style={styles.cardTitle}>{habit.title}</Text>
+                <Text style={styles.cardDescription}>{habit.description}</Text>
+                <View style={styles.cardFooter}>
+                  <View style={styles.streakBadge}>
+                    <MaterialCommunityIcons
+                      name="fire"
+                      size={18}
+                      color={"#ff9800"}
+                    />
+                    <Text style={styles.streakText}>
+                      {habit.streak_count} day streak
+                    </Text>
+                  </View>
+                  <View style={styles.frequencyBadge}>
+                    <Text style={styles.frequencyText}>
+                      {habit.frequency.charAt(0).toUpperCase() +
+                        habit.frequency.slice(1)}
+                    </Text>
                   </View>
                 </View>
-              </Surface>
-            </View>
+              </View>
+            </Surface>
           ))
         )}
       </ScrollView>
@@ -136,19 +132,16 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   title: { fontWeight: "bold" },
-  cardShadow: {
+  card: {
+    backgroundColor: "#f7f2fa",
+    borderRadius: 16,
+    marginBottom: 20,
+    elevation: 1,
+    // iOS shadow:
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
-    shadowRadius: 8,
-    backgroundColor: "#f7f2fa",
-    borderRadius: 18,
-    marginBottom: 18,
-  },
-  card: {
-    backgroundColor: "#f7f2fa",
-    borderRadius: 18,
-    elevation: 2,
+    shadowRadius: 16,
   },
   cardContent: {
     padding: 20,

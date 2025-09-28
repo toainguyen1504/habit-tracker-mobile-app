@@ -7,6 +7,12 @@ export interface Habit extends Models.Document {
     description: string;
     frequency: string;
     streak_count: number;
-    last_completed: string; // ISO date string
-    created_at: string; // ISO date string
+    last_completed: string;
+    created_at: string;
+}
+
+export interface HabitCompletion extends Models.Document {
+    habit_id: string;
+    user_id: string;
+    completed_at: string;
 }

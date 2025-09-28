@@ -85,7 +85,6 @@ export default function Index() {
         [Query.equal("user_id", user.$id)]
       );
 
-      console.log(response.documents);
       setHabits(response.documents as unknown as Habit[]);
     } catch (error) {
       console.error(error);
@@ -124,6 +123,7 @@ export default function Index() {
 
   const handleCompleteHabit = async (id: string) => {
     if (!user || completedHabits?.includes(id)) return;
+    // if (!user) return; //test when swipeable habit
     try {
       const currentDate = new Date().toISOString();
 

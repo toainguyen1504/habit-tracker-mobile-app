@@ -2,7 +2,7 @@ import { DATABASE_ID, databases, HABITS_TABLE_ID } from "@/lib/appwrite";
 import { useAuth } from "@/lib/auth-context";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { ID } from "react-native-appwrite";
 import {
   Button,
@@ -56,42 +56,47 @@ export default function AddHabitScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <TextInput
-        label="Title"
-        mode="outlined"
-        onChangeText={setTitle}
-        style={styles.input}
-      />
-
-      <TextInput
-        label="Description"
-        mode="outlined"
-        onChangeText={setDescription}
-        style={styles.input}
-      />
-
-      <View style={styles.frequencyContainer}>
-        <SegmentedButtons
-          value={frequency}
-          onValueChange={(value) => setFrequency(value as Frequency)}
-          buttons={FREQUENCIES.map((freq) => ({
-            value: freq,
-            label: freq.charAt(0).toUpperCase() + freq.slice(1),
-          }))}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <View style={styles.container}>
+        <TextInput
+          label="Title"
+          mode="outlined"
+          onChangeText={setTitle}
+          style={styles.input}
         />
+
+        <TextInput
+          label="Description"
+          mode="outlined"
+          onChangeText={setDescription}
+          style={styles.input}
+        />
+
+        <View style={styles.frequencyContainer}>
+          <SegmentedButtons
+            value={frequency}
+            onValueChange={(value) => setFrequency(value as Frequency)}
+            buttons={FREQUENCIES.map((freq) => ({
+              value: freq,
+              label: freq.charAt(0).toUpperCase() + freq.slice(1),
+            }))}
+          />
+        </View>
+
+        <Button
+          mode="contained"
+          onPress={handleSubmit}
+          disabled={!title || !description}
+        >
+          Add habit
+        </Button>
+
+        {error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
       </View>
-
-      <Button
-        mode="contained"
-        onPress={handleSubmit}
-        disabled={!title || !description}
-      >
-        Add habit
-      </Button>
-
-      {error && <Text style={{ color: theme.colors.error }}>{error}</Text>}
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
